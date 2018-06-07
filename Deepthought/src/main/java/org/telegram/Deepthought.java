@@ -27,14 +27,13 @@ import java.util.logging.Logger;
  * @date 16 of October of 2016
  */
 public class Deepthought {
-    private static final int APIKEY = 0; // your api key
-    private static final String APIHASH = "<your-api-hash"; // your api hash
-    private static final String PHONENUMBER = "<your-phone-number>"; // Your phone number
+    private static final int APIKEY = 265470; // your api key
+    private static final String APIHASH = "fc1ab20a1b78e3fa9c595455881778e4"; // your api hash
+    private static final String PHONENUMBER = "+18022760178";
 
     public static void main(String[] args) {
         Logger.getGlobal().addHandler(new ConsoleHandler());
         Logger.getGlobal().setLevel(Level.ALL);
-
 
         final DatabaseManagerImpl databaseManager = new DatabaseManagerImpl();
         final BotConfig botConfig = new BotConfigImpl(PHONENUMBER);

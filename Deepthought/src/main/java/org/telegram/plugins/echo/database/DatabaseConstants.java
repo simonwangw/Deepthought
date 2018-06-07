@@ -8,8 +8,10 @@ package org.telegram.plugins.echo.database;
  */
 class DatabaseConstants {
     static final String controllerDB = "com.mysql.cj.jdbc.Driver";
-    static final String userDB = "<your-own-db-user>";
-    private static final String databaseName = "<your-own-db-name>";
-    static final String password = "<your-own-db-password>";
-    static final String linkDB = "jdbc:mysql://localhost:3306/" + databaseName + "?useUnicode=true&characterEncoding=UTF-8";
+    static final String userDB = "tguser";
+    static final String password = "IvM@ck#z9$Eqy3aGB";
+    private static final String databaseName = "tg_local";
+    static final String linkDB = "jdbc:mysql://rm-rj9359u6ma681ncgto.mysql.rds.aliyuncs.com:3306/" + databaseName
+            + "?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC";
+
 }
