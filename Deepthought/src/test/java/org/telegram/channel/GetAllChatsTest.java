@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import org.junit.Test;
 import org.telegram.api.chat.TLAbsChat;
 import org.telegram.api.chat.TLChat;
+import org.telegram.api.chat.channel.TLChannel;
 import org.telegram.api.engine.RpcException;
 import org.telegram.api.functions.messages.TLRequestMessagesGetAllChats;
 import org.telegram.api.messages.chats.TLAbsMessagesChats;
@@ -29,8 +30,13 @@ public class GetAllChatsTest extends AbstractTest {
             System.out.println(JSONObject.toJSONString(tlMessagesChats));
             TLVector<TLAbsChat> chatList = tlMessagesChats.getChats();
             for (TLAbsChat chat : chatList) {
-                TLChat c = (TLChat)chat;
-                System.out.println(c.getTitle());
+                if (chat instanceof TLChat) {
+                    TLChat c = (TLChat)chat;
+                    System.out.println(c.getTitle());
+                } else if (chat instanceof TLChannel) {
+                    TLChannel c = (TLChannel)chat;
+                    System.out.println(c.getTitle());
+                }
             }
             //tlMessagesChats.getChats().get(0).getId();
         } catch (ExecutionException e) {

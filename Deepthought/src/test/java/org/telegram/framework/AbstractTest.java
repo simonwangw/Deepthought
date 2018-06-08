@@ -1,6 +1,9 @@
 package org.telegram.framework;
 
+import com.alibaba.fastjson.JSONObject;
 import org.junit.Before;
+import org.telegram.api.engine.RpcException;
+import org.telegram.api.updates.TLAbsUpdates;
 import org.telegram.bot.handlers.interfaces.IChatsHandler;
 import org.telegram.bot.handlers.interfaces.IUsersHandler;
 import org.telegram.bot.kernel.IKernelComm;
@@ -15,8 +18,11 @@ import org.telegram.plugins.echo.handlers.ChatsHandler;
 import org.telegram.plugins.echo.handlers.MessageHandler;
 import org.telegram.plugins.echo.handlers.TLMessageHandler;
 import org.telegram.plugins.echo.handlers.UsersHandler;
+import org.telegram.tl.TLMethod;
+import org.telegram.tl.TLObject;
 
 import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,7 +33,7 @@ import java.util.logging.Logger;
 public class AbstractTest {
 
     private static final int APIKEY = 265470; // your api key
-    private static final String APIHASH = "fc1ab20a1b78e3fa9c595455881778e4"; // your api hash
+    public static final String APIHASH = "fc1ab20a1b78e3fa9c595455881778e4"; // your api hash
     private static final String PHONENUMBER = "+8613811155779";
 
     private IKernelComm kernelComm;
@@ -60,6 +66,7 @@ public class AbstractTest {
         try {
             final TelegramBot kernel = new TelegramBot(botConfig, builder, APIKEY, APIHASH);
             LoginStatus status = kernel.init();
+
             if (status == LoginStatus.CODESENT) {
                 Scanner in = new Scanner(System.in);
                 boolean success = kernel.getKernelAuth().setAuthCode(in.nextLine().trim());
@@ -74,8 +81,20 @@ public class AbstractTest {
             }
 
             this.kernelComm = kernel.getKernelComm();
-        } catch (Exception ex) {
+            } catch (Exception ex) {
             Logger.getGlobal().severe(ex.getMessage());
         }
     }
+
+    protected <T extends TLObject> void sendRegularRequest(TLMethod<T> method) {
+        try {
+            T tlAbsUpdates = this.getKernelComm().doRpcCallSync(method);
+            System.out.println(JSONObject.toJSONString(tlAbsUpdates));
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (RpcException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
