@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.telegram.api.functions.messages.TLRequestMessagesSendMessage;
 import org.telegram.api.input.peer.TLInputPeerChannel;
 import org.telegram.framework.AbstractTest;
+import org.telegram.framework.TestConstants;
 
 public class BroadcaseTest extends AbstractTest {
     @Test
@@ -12,8 +13,8 @@ public class BroadcaseTest extends AbstractTest {
         tlRequestMessagesSendMessage.setFlags(16); //broadcast
         tlRequestMessagesSendMessage.setMessage("this is a broadcast");
         TLInputPeerChannel tlAbsPeer = new TLInputPeerChannel();
-        tlAbsPeer.setChannelId(1160021388);
-        tlAbsPeer.setAccessHash(6598956788439284138L);
+        tlAbsPeer.setChannelId(TestConstants.TEST_CHANNEL_ID);
+        tlAbsPeer.setAccessHash(TestConstants.TEST_CHANNEL_HASH);
         tlRequestMessagesSendMessage.setPeer(tlAbsPeer);
         tlRequestMessagesSendMessage.setRandomId(System.currentTimeMillis());
 
