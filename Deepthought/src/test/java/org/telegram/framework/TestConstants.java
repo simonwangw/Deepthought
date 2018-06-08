@@ -16,6 +16,10 @@ public class TestConstants {
 
     public static final long TEST_BROADCAST_CHANNEL_HASH = 9030140708348872057L;
 
+    public static final int TEST_USER_ID = 581092383;
+
+    public static final long TEST_USER_HASH = 7587085723650870029L;
+
     public static final Map<Integer, Long> userInfoMap = ImmutableMap.of(600033548, 4779419125502341675L,
             581092383,7587085723650870029L, 563840139,2978680338987691618L);
 
@@ -47,7 +51,7 @@ public class TestConstants {
     }
 
     public static void main(String[] args) {
-        long l = -193231328505903751L & Long.MAX_VALUE;
+        long l = -5671066344313595079L & Long.MAX_VALUE;
         System.out.println(l);
     }
 
