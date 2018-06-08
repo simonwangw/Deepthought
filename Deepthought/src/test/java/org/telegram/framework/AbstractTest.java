@@ -1,12 +1,10 @@
-package org.telegram;
+package org.telegram.framework;
 
-import org.telegram.api.engine.RpcException;
-import org.telegram.api.engine.TimeoutException;
-import org.telegram.bot.TelegramFunctionCallback;
+import org.junit.Before;
 import org.telegram.bot.handlers.interfaces.IChatsHandler;
 import org.telegram.bot.handlers.interfaces.IUsersHandler;
+import org.telegram.bot.kernel.IKernelComm;
 import org.telegram.bot.kernel.TelegramBot;
-import org.telegram.bot.services.BotLogger;
 import org.telegram.bot.structure.BotConfig;
 import org.telegram.bot.structure.LoginStatus;
 import org.telegram.plugins.echo.BotConfigImpl;
@@ -17,9 +15,6 @@ import org.telegram.plugins.echo.handlers.ChatsHandler;
 import org.telegram.plugins.echo.handlers.MessageHandler;
 import org.telegram.plugins.echo.handlers.TLMessageHandler;
 import org.telegram.plugins.echo.handlers.UsersHandler;
-import org.telegram.api.functions.messages.TLRequestMessagesGetAllChats;
-import org.telegram.tl.TLIntVector;
-import org.telegram.tl.TLObject;
 
 import java.util.Scanner;
 import java.util.logging.ConsoleHandler;
@@ -27,17 +22,22 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * @author Ruben Bermudez
- * @version 1.0
- * @brief TODO
- * @date 16 of October of 2016
+ * put the login logic into the parent class
  */
-public class Deepthought {
+public class AbstractTest {
+
     private static final int APIKEY = 265470; // your api key
     private static final String APIHASH = "fc1ab20a1b78e3fa9c595455881778e4"; // your api hash
     private static final String PHONENUMBER = "+18022760178";
 
-    public static void main(String[] args) {
+    private IKernelComm kernelComm;
+
+    public IKernelComm getKernelComm() {
+        return this.kernelComm;
+    }
+
+    @Before
+    public void beforeEachTest() {
         Logger.getGlobal().addHandler(new ConsoleHandler());
         Logger.getGlobal().setLevel(Level.ALL);
 
@@ -73,32 +73,9 @@ public class Deepthought {
                 throw new Exception("Failed to log in: " + status);
             }
 
-            TLRequestMessagesGetAllChats tlRequestMessagesGetAllChats = new TLRequestMessagesGetAllChats();
-            TLIntVector vector = new TLIntVector();
-            vector.add(0);
-            tlRequestMessagesGetAllChats.setExceptIds(vector);
-
-            kernel.getKernelComm().doRpcCallAsync(tlRequestMessagesGetAllChats, new TelegramFunctionCallback(){
-                @Override
-                public void onSuccess(TLObject result) {
-                    System.out.println(result);
-                }
-
-                @Override
-                public void onRpcError(RpcException e) {
-                }
-
-                @Override
-                public void onTimeout(TimeoutException e) {
-                }
-
-                @Override
-                public void onUnknownError(Throwable e) {
-                }
-            });
-
-        } catch (Exception e) {
-            BotLogger.severe("MAIN", e);
+            this.kernelComm = kernel.getKernelComm();
+        } catch (Exception ex) {
+            Logger.getGlobal().severe(ex.getMessage());
         }
     }
 }
