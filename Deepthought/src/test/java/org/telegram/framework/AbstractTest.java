@@ -28,7 +28,7 @@ public class AbstractTest {
 
     private static final int APIKEY = 265470; // your api key
     private static final String APIHASH = "fc1ab20a1b78e3fa9c595455881778e4"; // your api hash
-    private static final String PHONENUMBER = "+18022760178";
+    private static final String PHONENUMBER = "+8613811155779";
 
     private IKernelComm kernelComm;
 

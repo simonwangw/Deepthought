@@ -13,5 +13,4 @@ class DatabaseConstants {
     private static final String databaseName = "tg_local";
     static final String linkDB = "jdbc:mysql://rm-rj9359u6ma681ncgto.mysql.rds.aliyuncs.com:3306/" + databaseName
             + "?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC";
-
 }

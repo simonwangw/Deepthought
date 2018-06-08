@@ -44,7 +44,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <telegramapi.version>57.2</telegramapi.version>
+        <telegramapi.version>66.2</telegramapi.version>
         <mysql.version>6.0.4</mysql.version>
     </properties>
 

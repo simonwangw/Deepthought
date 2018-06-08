@@ -25,6 +25,7 @@ public class CreateChannelTest extends AbstractTest {
 
         try {
             TLAbsUpdates tlAbsUpdate = this.getKernelComm().doRpcCallSync(tlRequestChannelsCreateChannel);
+
             System.out.println(JSONObject.toJSONString(tlAbsUpdate));
         } catch (ExecutionException e) {
             e.printStackTrace();
