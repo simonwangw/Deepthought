@@ -1,28 +1,53 @@
 package org.telegram.channel;
 
+import com.alibaba.fastjson.JSONObject;
 import org.junit.Test;
+import org.telegram.api.engine.RpcException;
+import org.telegram.api.functions.channels.TLRequestChannelsCreateChannel;
 import org.telegram.api.functions.messages.TLRequestMessagesSendMessage;
 import org.telegram.api.input.peer.TLInputPeerChannel;
+import org.telegram.api.updates.TLAbsUpdates;
 import org.telegram.framework.AbstractTest;
 import org.telegram.framework.TestConstants;
 
-public class BroadcaseTest extends AbstractTest {
-    @Test
-    public void testBroadcast() {
-        TLRequestMessagesSendMessage tlRequestMessagesSendMessage = new TLRequestMessagesSendMessage();
-        tlRequestMessagesSendMessage.setFlags(16); //broadcast
-        tlRequestMessagesSendMessage.setMessage("this is a broadcast");
-        TLInputPeerChannel tlAbsPeer = new TLInputPeerChannel();
-        tlAbsPeer.setChannelId(TestConstants.TEST_CHANNEL_ID);
-        tlAbsPeer.setAccessHash(TestConstants.TEST_CHANNEL_HASH);
-        tlRequestMessagesSendMessage.setPeer(tlAbsPeer);
-        tlRequestMessagesSendMessage.setRandomId(System.currentTimeMillis());
+import java.util.concurrent.ExecutionException;
 
-        this.sendRegularRequest(tlRequestMessagesSendMessage);
+public class BroadcaseTest extends AbstractTest {
+    private static final int BROADCASEGROUP = 1;
+
+    private static final int MEGAGROUP = 2;
+
+    @Test
+    public void testCreateChannel() {
+        TLRequestChannelsCreateChannel tlRequestChannelsCreateChannel
+                = new TLRequestChannelsCreateChannel();
+        tlRequestChannelsCreateChannel.setTitle("mega-channel"+System.currentTimeMillis());
+        tlRequestChannelsCreateChannel.setFlags(MEGAGROUP);
+        tlRequestChannelsCreateChannel.setAbout("about");
+
+        this.sendReq(tlRequestChannelsCreateChannel);
     }
 
     @Test
-    public void testBroadcast2() {
-//        this.getKernelComm().send
+    public void testCreateBroadcastChannel() {
+        TLRequestChannelsCreateChannel tlRequestChannelsCreateChannel
+                = new TLRequestChannelsCreateChannel();
+        tlRequestChannelsCreateChannel.setTitle("b-channel"+System.currentTimeMillis());
+        tlRequestChannelsCreateChannel.setFlags(BROADCASEGROUP);
+        tlRequestChannelsCreateChannel.setAbout("about broadcast");
+
+        this.sendReq(tlRequestChannelsCreateChannel);
+    }
+
+    private void sendReq(TLRequestChannelsCreateChannel tlRequestChannelsCreateChannel) {
+        try {
+            TLAbsUpdates tlAbsUpdate = this.getKernelComm().doRpcCallSync(tlRequestChannelsCreateChannel);
+
+            System.out.println(JSONObject.toJSONString(tlAbsUpdate));
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (RpcException e) {
+            e.printStackTrace();
+        }
     }
 }

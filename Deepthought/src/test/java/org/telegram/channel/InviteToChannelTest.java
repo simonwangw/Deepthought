@@ -42,8 +42,8 @@ public class InviteToChannelTest extends AbstractTest {
                 new TLRequestChannelsInviteToChannel();
 
         TLInputChannel tlInputChannel = new TLInputChannel();
-        tlInputChannel.setChannelId(TestConstants.TEST_CHANNEL_ID);
-        tlInputChannel.setAccessHash(TestConstants.TEST_CHANNEL_HASH);
+        tlInputChannel.setChannelId(channelId);
+        tlInputChannel.setAccessHash(channelHash);
         tlRequestChannelsInviteToChannel.setChannel(tlInputChannel);
 
         try {
