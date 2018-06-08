@@ -9,6 +9,7 @@ import org.telegram.api.engine.RpcException;
 import org.telegram.api.functions.channels.TLRequestChannelsGetParticipants;
 import org.telegram.api.input.chat.TLInputChannel;
 import org.telegram.framework.AbstractTest;
+import org.telegram.framework.TestConstants;
 
 import java.util.concurrent.ExecutionException;
 
@@ -19,8 +20,8 @@ public class GetParticipantsTest extends AbstractTest {
         TLRequestChannelsGetParticipants tlRequestChannelsGetParticipants
                 = new TLRequestChannelsGetParticipants();
         TLInputChannel tlAbsInputChannel = new TLInputChannel();
-        tlAbsInputChannel.setChannelId(1160021388);
-        tlAbsInputChannel.setAccessHash(6598956788439284138L);
+        tlAbsInputChannel.setChannelId(TestConstants.TEST_BROADCAST_CHANNEL_ID);
+        tlAbsInputChannel.setAccessHash(TestConstants.TEST_BROADCAST_CHANNEL_HASH);
         tlRequestChannelsGetParticipants.setChannel(tlAbsInputChannel);
         tlRequestChannelsGetParticipants.setFilter(new TLChannelParticipantsFilterRecent());
         tlRequestChannelsGetParticipants.setLimit(100);
