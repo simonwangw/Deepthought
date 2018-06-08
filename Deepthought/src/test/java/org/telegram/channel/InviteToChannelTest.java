@@ -28,10 +28,18 @@ import java.util.concurrent.ExecutionException;
 public class InviteToChannelTest extends AbstractTest {
 
     @Test
-    public void testInviteToChannel() {
+    public void testInviteToBroadcastChannel() {
+        this.inviteToChannel(TestConstants.TEST_BROADCAST_CHANNEL_ID, TestConstants.TEST_BROADCAST_CHANNEL_HASH);
+    }
+
+    @Test
+    public void testInviteToMegaChannel() {
+        this.inviteToChannel(TestConstants.TEST_CHANNEL_ID, TestConstants.TEST_CHANNEL_HASH);
+    }
+
+    public void inviteToChannel(int channelId, long channelHash) {
         TLRequestChannelsInviteToChannel tlRequestChannelsInviteToChannel =
                 new TLRequestChannelsInviteToChannel();
-
 
         TLInputChannel tlInputChannel = new TLInputChannel();
         tlInputChannel.setChannelId(TestConstants.TEST_CHANNEL_ID);

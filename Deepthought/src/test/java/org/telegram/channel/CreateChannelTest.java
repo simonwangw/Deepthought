@@ -23,6 +23,21 @@ public class CreateChannelTest extends AbstractTest {
         tlRequestChannelsCreateChannel.setFlags(MEGAGROUP);
         tlRequestChannelsCreateChannel.setAbout("about");
 
+        this.sendReq(tlRequestChannelsCreateChannel);
+    }
+
+    @Test
+    public void testCreateBroadcastChannel() {
+        TLRequestChannelsCreateChannel tlRequestChannelsCreateChannel
+                = new TLRequestChannelsCreateChannel();
+        tlRequestChannelsCreateChannel.setTitle("b-channel"+System.currentTimeMillis());
+        tlRequestChannelsCreateChannel.setFlags(BROADCASEGROUP);
+        tlRequestChannelsCreateChannel.setAbout("about broadcast");
+
+        this.sendReq(tlRequestChannelsCreateChannel);
+    }
+
+    private void sendReq(TLRequestChannelsCreateChannel tlRequestChannelsCreateChannel) {
         try {
             TLAbsUpdates tlAbsUpdate = this.getKernelComm().doRpcCallSync(tlRequestChannelsCreateChannel);
 
