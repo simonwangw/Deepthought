@@ -19,8 +19,8 @@ public class CreateChannelTest extends AbstractTest {
     public void testCreateChannel() {
         TLRequestChannelsCreateChannel tlRequestChannelsCreateChannel
                 = new TLRequestChannelsCreateChannel();
-        tlRequestChannelsCreateChannel.setTitle("testchannel"+System.currentTimeMillis());
-        tlRequestChannelsCreateChannel.setFlags(BROADCASEGROUP);
+        tlRequestChannelsCreateChannel.setTitle("mega-channel"+System.currentTimeMillis());
+        tlRequestChannelsCreateChannel.setFlags(MEGAGROUP);
         tlRequestChannelsCreateChannel.setAbout("about");
 
         try {

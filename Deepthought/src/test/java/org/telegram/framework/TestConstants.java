@@ -8,11 +8,12 @@ import java.util.Map;
  * some constants for testing
  */
 public class TestConstants {
-    public static final int TEST_CHANNEL_ID = 1160021388;
+    public static final int TEST_CHANNEL_ID = 1174366442;
 
-    public static final long TEST_CHANNEL_HASH = 6598956788439284138L;
+    public static final long TEST_CHANNEL_HASH = 7055224328944874088L;
 
-    public static final Map<Integer, Long> userInfoMap = ImmutableMap.of(581092383, -1636286313203905779L);
+    public static final Map<Integer, Long> userInfoMap = ImmutableMap.of(600033548, 4779419125502341675L,
+            581092383,7587085723650870029L, 563840139,2978680338987691618L);
 
     static class UserInfo {
         private long accessHash;
