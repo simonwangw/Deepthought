@@ -11,13 +11,15 @@ import org.telegram.api.engine.RpcException;
 import org.telegram.api.functions.channels.TLRequestChannelsInviteToChannel;
 import org.telegram.api.functions.contacts.TLRequestContactsGetContacts;
 import org.telegram.api.functions.users.TLRequestUsersGetUsers;
+import org.telegram.api.input.chat.TLInputChannel;
 import org.telegram.api.input.user.TLAbsInputUser;
 import org.telegram.api.input.user.TLInputUser;
 import org.telegram.api.updates.TLAbsUpdates;
-import org.telegram.api.user.TLAbsUser;
 import org.telegram.framework.AbstractTest;
+import org.telegram.framework.TestConstants;
 import org.telegram.tl.TLVector;
 
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -27,32 +29,28 @@ public class InviteToChannelTest extends AbstractTest {
 
     @Test
     public void testInviteToChannel() {
-        TLRequestContactsGetContacts tlRequestContactsGetContacts = new TLRequestContactsGetContacts();
-        tlRequestContactsGetContacts.setHash(AbstractTest.APIHASH);
-
         TLRequestChannelsInviteToChannel tlRequestChannelsInviteToChannel =
                 new TLRequestChannelsInviteToChannel();
 
-        TLRequestUsersGetUsers tlRequestUsersGetUsers = new TLRequestUsersGetUsers();
+
+        TLInputChannel tlInputChannel = new TLInputChannel();
+        tlInputChannel.setChannelId(TestConstants.TEST_CHANNEL_ID);
+        tlInputChannel.setAccessHash(TestConstants.TEST_CHANNEL_HASH);
+        tlRequestChannelsInviteToChannel.setChannel(tlInputChannel);
 
         try {
-            TLAbsContacts tlAbsContacts = this.getKernelComm().doRpcCallSync(tlRequestContactsGetContacts);
-            TLContacts tlContacts = (TLContacts) tlAbsContacts;
-            TLVector<TLContact> vector = tlContacts.getContacts();
+            tlRequestChannelsInviteToChannel.setChannel(tlInputChannel);
+            TLVector<TLAbsInputUser> vector = new TLVector<>();
+            Map<Integer, Long> userInfoMap = TestConstants.userInfoMap;
 
-            TLVector<TLAbsInputUser> userTLVector = new TLVector<>();
-
-            for (TLContact contact : vector) {
-                int userId = contact.getUserId();
-                TLInputUser inputUser = new TLInputUser();
-                inputUser.setUserId(contact.getUserId());
-                userTLVector.add(inputUser);
+            for (Integer userId : userInfoMap.keySet()) {
+                TLInputUser tlInputUser = new TLInputUser();
+                tlInputUser.setUserId(userId);
+                tlInputUser.setAccessHash(userInfoMap.get(userId));
+                vector.add(tlInputUser);
             }
 
-            tlRequestUsersGetUsers.setId(userTLVector);
-            TLVector<TLAbsUser> tlAbsUserTLVector = this.getKernelComm().doRpcCallSync(tlRequestUsersGetUsers);
-
-//            tlRequestChannelsInviteToChannel.setUsers();
+            tlRequestChannelsInviteToChannel.setUsers(vector);
             TLAbsUpdates updates = this.getKernelComm().doRpcCallSync(tlRequestChannelsInviteToChannel);
             System.out.println(JSONObject.toJSONString(updates));
         } catch (ExecutionException e) {

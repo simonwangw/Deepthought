@@ -20,4 +20,9 @@ public class BroadcaseTest extends AbstractTest {
 
         this.sendRegularRequest(tlRequestMessagesSendMessage);
     }
+
+    @Test
+    public void testBroadcast2() {
+//        this.getKernelComm().send
+    }
 }
