@@ -12,9 +12,9 @@ public class TestConstants {
 
     public static final long TEST_CHANNEL_HASH = 7055224328944874088L;
 
-    public static final int TEST_BROADCAST_CHANNEL_ID = 1295525098;
+    public static final int TEST_BROADCAST_CHANNEL_ID = 1236657744;
 
-    public static final long TEST_BROADCAST_CHANNEL_HASH = 9030140708348872057L;
+    public static final long TEST_BROADCAST_CHANNEL_HASH = -5671066344313595079L;
 
     public static final int TEST_USER_ID = 581092383;
 
